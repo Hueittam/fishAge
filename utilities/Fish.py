@@ -1,12 +1,10 @@
-
-
 class Fish:
     id: int
     weight: int
     length: int
     liverweight: float
     gonadweight: float
-
+        
     def __init__(
         self,
         id: int,

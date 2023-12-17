@@ -1,8 +1,10 @@
-from Fish import Fish
-from Reader import readFishesFromCsv
+from utilities.Fish import Fish
+from utilities.FishesService import getLearningData, readTestFishesFromCsv, LearningData
 from typing import List
 
 TESTPATH = 'ressources/test.csv'
+TRAINPATH = 'ressources/train.csv'
 
-fishes: List[Fish] = readFishesFromCsv(TESTPATH)
-[print(fish) for fish in fishes]
+testFishes: LearningData = getLearningData(TRAINPATH)
+trainFishes: List[Fish] = readTestFishesFromCsv(TESTPATH)
+[print(fish) for fish in trainFishes]
