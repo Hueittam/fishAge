@@ -1,7 +1,8 @@
+import pandas as pd
 from models.model import Model
 from utilities.AgedFish import AgedFish
 from utilities.Fish import Fish
-from utilities.FishesService import exportPredicitonsAsFile, getLearningData, readTestFishesFromCsv, LearningData
+from utilities.FishesService import getLearningData, readTestFishesFromCsv, LearningData
 from typing import List
 
 TESTPATH = 'ressources/test.csv'
@@ -11,6 +12,9 @@ OUTPUTPATH = 'output/submission.csv'
 trainFishes: LearningData = getLearningData(TRAINPATH)
 testFishes: List[Fish] = readTestFishesFromCsv(TESTPATH)
 
+# fonctions diverses
+def exportPredicitonsAsFile(predictions: List[AgedFish]):
+    pd.DataFrame([(prediction.id, prediction.age) for prediction in predictions]).to_csv(OUTPUTPATH, index=False)
 def predict(model: Model) -> List[AgedFish]:
     return [ AgedFish.fromFish(fish, model.predict(fish)) for fish in testFishes]
 
@@ -32,4 +36,4 @@ perfs = {model:model.train(trainFishes) for model in models}
 # par exemple, on prend l'erreur minimale
 meilleurModel: Model = min(perfs, key=perfs.get)
 predictions = predict(meilleurModel)
-exportPredicitonsAsFile(predictions, OUTPUTPATH)
+exportPredicitonsAsFile(predictions)
