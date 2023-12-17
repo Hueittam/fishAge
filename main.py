@@ -1,6 +1,5 @@
 import pandas as pd
 from models.model import Model
-from utilities.AgedFish import AgedFish
 from utilities.Fish import Fish
 from utilities.FishesService import getLearningData, readTestFishesFromCsv, LearningData
 from typing import Dict, List

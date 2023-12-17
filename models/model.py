@@ -1,6 +1,5 @@
 from typing import Dict, List
 
-from utilities.AgedFish import AgedFish
 from utilities.Fish import Fish
 from utilities.FishesService import LearningData
 
@@ -15,7 +14,7 @@ class Model:
         """train model, return error"""
         return 100.0
     
-    def evaluateError(self, testSet: List[AgedFish]):
+    def evaluateError(self, testSet: List[Fish]):
         predictions = { {fish:self.predict(fish)} for fish in testSet }
         return Model.mse(predictions) 
     
