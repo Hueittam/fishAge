@@ -7,12 +7,10 @@ class Fish:
         
     def __init__(
         self,
-        id: int,
         weight: int,
         length: int,
         liverweight: float,
         gonadweight: float):
-        self.id = id
         self.weight = weight
         self.length = length
         self.liverweight = liverweight

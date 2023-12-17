@@ -3,20 +3,21 @@ from models.model import Model
 from utilities.AgedFish import AgedFish
 from utilities.Fish import Fish
 from utilities.FishesService import getLearningData, readTestFishesFromCsv, LearningData
-from typing import List
+from typing import Dict, List
 
 TESTPATH = 'ressources/test.csv'
 TRAINPATH = 'ressources/train.csv'
 OUTPUTPATH = 'output/submission.csv'
 
 trainFishes: LearningData = getLearningData(TRAINPATH)
-testFishes: List[Fish] = readTestFishesFromCsv(TESTPATH)
+testFishes: Dict[int, Fish] = readTestFishesFromCsv(TESTPATH)
 
 # fonctions diverses
-def exportPredicitonsAsFile(predictions: List[AgedFish]):
-    pd.DataFrame([(prediction.id, prediction.age) for prediction in predictions]).to_csv(OUTPUTPATH, index=False)
-def predict(model: Model) -> List[AgedFish]:
-    return [ AgedFish.fromFish(fish, model.predict(fish)) for fish in testFishes]
+def exportPredictionsAsFile(predictions: Dict[int, int]):
+    pd.DataFrame([(id, age) for (id, age) in predictions.items()]).to_csv(OUTPUTPATH, index=False)
+    
+def predict(model: Model) -> Dict[int, int]:
+    return { id:model.predict(fish) for (id, fish) in testFishes.items() }
 
 # model Knn?
 knnModel: Model = Model()
@@ -36,4 +37,4 @@ perfs = {model:model.train(trainFishes) for model in models}
 # par exemple, on prend l'erreur minimale
 meilleurModel: Model = min(perfs, key=perfs.get)
 predictions = predict(meilleurModel)
-exportPredicitonsAsFile(predictions)
+exportPredictionsAsFile(predictions)
