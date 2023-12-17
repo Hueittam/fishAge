@@ -24,3 +24,7 @@ def _readTrainingFishesFromCsv(path: str):
 
 def getLearningData(path: str) -> LearningData:
     return LearningData(_readTrainingFishesFromCsv(path))
+
+def exportPredicitonsAsFile(predictions: List[AgedFish], path: str):
+    # TODO avec panda
+    pass
