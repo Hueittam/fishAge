@@ -17,10 +17,10 @@ class Model:
     
     def evaluateError(self, testSet: List[AgedFish]):
         predictions = { {fish:self.predict(fish)} for fish in testSet }
-        return Model.msa(predictions) 
+        return Model.mse(predictions) 
     
     @staticmethod
-    def msa(predictions: Dict[Fish, int]):
+    def mse(predictions: Dict[Fish, int]):
         # sum([(predicted_value - real_value)**2 for i in range(N)])/N N étant le nombre de valeur
         size = len(predictions)
         return sum([(prediction - actual.age)**2 for actual, prediction in predictions.items()])/ size
