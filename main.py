@@ -30,6 +30,6 @@ perfs = {model:model.train(trainFishes) for model in models}
 # afficher les perfs, dicuter de leur pertinence 
 # TODO choisir le model
 # par exemple, on prend l'erreur minimale
-meilleurModel = models[0]
+meilleurModel: Model = min(perfs, key=perfs.get)
 predictions = predict(meilleurModel)
 exportPredicitonsAsFile(predictions, OUTPUTPATH)
